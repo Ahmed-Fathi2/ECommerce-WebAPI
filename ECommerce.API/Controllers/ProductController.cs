@@ -24,6 +24,7 @@ namespace ECommerce.API.Controllers
         //    var result = await _productManager.GetAllProducts();
         //    return Ok(result.Value);
         //}
+        //test
 
         [HttpGet]
         //[Authorize]
