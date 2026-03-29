@@ -1,0 +1,24 @@
+﻿//using Microsoft.AspNetCore.Mvc;
+
+namespace ECommerce.API.Abstractions
+{
+    public class GlobalExceptionHandler : Microsoft.AspNetCore.Diagnostics.IExceptionHandler
+    {
+        public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
+        {
+            var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
+            {
+                Status = StatusCodes.Status500InternalServerError,
+                Title = "Internal Server Error",
+                Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1"
+            };
+
+            httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+
+            await httpContext.Response.WriteAsJsonAsync(problemDetails);
+
+            return true;
+        }
+    }
+}
+
