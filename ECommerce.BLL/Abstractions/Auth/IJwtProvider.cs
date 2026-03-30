@@ -1,4 +1,4 @@
-﻿using ECommerce.DAL.Data.Entities;
+﻿using ECommerce.Domain;
 
 namespace ECommerce.BLL.Abstractions.Auth
 {

@@ -2,8 +2,8 @@
 using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Text;
-using ECommerce.BLL.Abstractions;
 using ECommerce.BLL.Abstractions.Errors.File;
+using ECommerce.BLL.Abstractions.ResultPattern;
 using ECommerce.BLL.Dtos.Product;
 
 namespace ECommerce.BLL.Managers.FileManager

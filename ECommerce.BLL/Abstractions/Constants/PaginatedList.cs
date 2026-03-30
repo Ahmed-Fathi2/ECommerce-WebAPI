@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace ECommerce.BLL.Abstractions
+namespace ECommerce.BLL.Abstractions.Constants
 {
     public class PaginatedList<T>
     {

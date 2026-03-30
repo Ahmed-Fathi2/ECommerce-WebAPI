@@ -8,10 +8,10 @@ namespace ECommerce.BLL.MappingConfiguration.Product
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<ECommerce.DAL.Product, ProductsResponse>()
+            config.NewConfig<ECommerce.Domain.Product, ProductsResponse>()
                 .Map(dest => dest.CaterogyId, src => src.Category.Id);
 
-            config.NewConfig<ECommerce.DAL.Product, ProductsResponse>()
+            config.NewConfig<ECommerce.Domain.Product, ProductsResponse>()
                 .Map(dest => dest.CaterogyId, src => src.Category.Id);
 
             //ProductsResponse

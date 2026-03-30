@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using ECommerce.DAL.Data.Entities;
+using ECommerce.Domain;
 
 namespace ECommerce.DAL
 {
@@ -18,26 +18,29 @@ namespace ECommerce.DAL
 
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    var connectionString = "Server=.;Database=MVCLab2;Trusted_Connection=true;TrustServerCertificate=true";
 
-        //    optionsBuilder.UseSqlServer(connectionString);
-        //}
+        public DbSet<Category> Categories => Set<Category>();  //    public DbSet<Category> Categories { get;}
+        public DbSet<Product> Products => Set<Product>();
+        public DbSet<Cart> Carts => Set<Cart>();
+        public DbSet<CartItem> CartItems => Set<CartItem>();
+        public DbSet<Order> Orders => Set<Order>();
+        public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            base.OnModelCreating(modelBuilder);
         }
 
 
 
-        public override int SaveChanges()
+        public override async Task <int> SaveChangesAsync(CancellationToken cancellationToken=default!)
         {
             AuditLog();
-            return base.SaveChanges();
+            return await base.SaveChangesAsync();
         }
 
         private void AuditLog()
@@ -55,32 +58,8 @@ namespace ECommerce.DAL
                 }
             }
         }
-        //public override int SaveChanges()
-        //{
-        //    AuditLog();
-        //    return base.SaveChanges();
+   
 
-        //}
-
-        //private void AuditLog()
-        //{
-        //    foreach (var entry in ChangeTracker.Entries<IAuditableEntity>())
-        //    {
-        //        if (entry.State == EntityState.Added)
-        //        {
-        //            entry.Entity.CreatedAt = DateTime.UtcNow;
-        //        }
-        //        else if (entry.State == EntityState.Modified)
-        //        {
-        //            entry.Entity.UpdatedAt = DateTime.UtcNow;
-        //        }
-        //    }
-        //}
-
-
-
-        public DbSet<Product> Products => Set<Product>();  // /public DbSet<Product> Products { get;}
-        public DbSet<Category> Categories => Set<Category>();  //    public DbSet<Category> Categories { get;}
 
 
     }

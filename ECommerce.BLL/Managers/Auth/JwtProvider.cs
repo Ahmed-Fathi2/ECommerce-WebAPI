@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using ECommerce.BLL.Abstractions.Auth;
-using ECommerce.DAL.Data.Entities;
+using ECommerce.Domain;
 
 namespace ECommerce.BLL.Managers.Auth
 {

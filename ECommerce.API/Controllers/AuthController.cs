@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ECommerce.BLL.Abstractions;
 using ECommerce.BLL.Dtos.Auth;
 using ECommerce.BLL.Managers.Auth;
+using ECommerce.BLL.Abstractions.ResultPattern;
 
 namespace ECommerce.API.Controllers
 {
@@ -19,7 +20,7 @@ namespace ECommerce.API.Controllers
         }
         [HttpPost("register")]
 
-        public async Task<ActionResult<Result>> Register(RegisterRequest registerRequest)
+        public async Task<ActionResult> Register(RegisterRequest registerRequest)
         {
             var origin = Request.Headers.Origin.ToString(); // Scheme + Host + Port (e.g., http://localhost:3000)
             var result = await _authManger.RegisterAsync(registerRequest,origin);  

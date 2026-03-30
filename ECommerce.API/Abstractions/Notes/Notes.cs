@@ -1,11 +1,11 @@
 using Mapster;
 using Microsoft.AspNetCore.Identity;
-using ECommerce.BLL.Abstractions;
 using ECommerce.BLL.Abstractions.Auth;
 using ECommerce.BLL.Abstractions.Constants;
 using ECommerce.BLL.Abstractions.Errors.User;
 using ECommerce.BLL.Dtos.Auth;
-using ECommerce.DAL.Data.Entities;
+using ECommerce.Domain;
+using ECommerce.BLL.Abstractions.ResultPattern;
 
 
 namespace ECommerce.BLL.Managers.Auth

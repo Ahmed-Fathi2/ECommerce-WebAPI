@@ -1,17 +1,14 @@
-using Mapster;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using ECommerce.BLL.Abstractions;
 using ECommerce.BLL.Abstractions.Auth;
 using ECommerce.BLL.Abstractions.Constants;
 using ECommerce.BLL.Abstractions.Errors.User;
+using ECommerce.BLL.Abstractions.ResultPattern;
 using ECommerce.BLL.Dtos.Auth;
 using ECommerce.BLL.Managers.Email;
-using ECommerce.DAL.Data.Entities;
+using ECommerce.Domain;
+using Mapster;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
 
 
 namespace ECommerce.BLL.Managers.Auth

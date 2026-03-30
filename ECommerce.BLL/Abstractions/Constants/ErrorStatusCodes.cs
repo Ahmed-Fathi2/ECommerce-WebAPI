@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ECommerce.BLL.Abstractions
+namespace ECommerce.BLL.Abstractions.Constants
 {
     public static class ErrorStatusCodes
     {

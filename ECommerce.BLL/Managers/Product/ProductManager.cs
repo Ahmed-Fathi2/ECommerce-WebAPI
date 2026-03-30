@@ -1,11 +1,12 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
-using ECommerce.BLL.Abstractions;
 using ECommerce.BLL.Abstractions.Errors.Product;
 using ECommerce.BLL.Dtos.Product;
 using ECommerce.DAL.Repositories.UnitOfWork;
 using ECommerce.DAL;
+using ECommerce.BLL.Abstractions.ResultPattern;
+using ECommerce.BLL.Abstractions.Constants;
 
 namespace ECommerce.BLL.Managers.Product
 {
@@ -63,7 +64,7 @@ namespace ECommerce.BLL.Managers.Product
 
             return Result.Success(result);
         }
-        public async Task<Result<ProductDetailsResponse>> GetProductById(int id)
+        public async Task<Result<ProductDetailsResponse>> GetProductById(Guid id)
         {
             var product = await _unitOfWork.ProductRepository.GetProductByCategoryAsync(id);
 
@@ -78,7 +79,7 @@ namespace ECommerce.BLL.Managers.Product
         public async Task<Result<ProductsResponse>> AddProduct(CreateProductRequest createProductRequest)
         {
 
-            var product = createProductRequest.Adapt<ECommerce.DAL.Product>();
+            var product = createProductRequest.Adapt<ECommerce.Domain.Product>();
 
             _unitOfWork.ProductRepository.Add(product);
             await _unitOfWork.SaveAsync();

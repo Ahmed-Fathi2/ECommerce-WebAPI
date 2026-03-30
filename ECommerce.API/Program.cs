@@ -9,16 +9,16 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using ECommerce.API.Abstractions;
-using ECommerce.BLL.Abstractions;
 using ECommerce.BLL.Abstractions.Auth;
 using ECommerce.BLL.Managers.Auth;
 using ECommerce.BLL.Managers.Email;
 using ECommerce.BLL.Managers.FileManager;
 using ECommerce.BLL.Managers.Product;
 using ECommerce.DAL;
-using ECommerce.DAL.Data.Entities;
+using ECommerce.Domain;
 using ECommerce.DAL.Repositories.ProductRepository;
 using ECommerce.DAL.Repositories.UnitOfWork;
+using ECommerce.BLL.Abstractions.Constants;
 
 namespace ECommerce.API
 {

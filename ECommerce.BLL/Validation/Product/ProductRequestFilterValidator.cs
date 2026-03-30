@@ -12,10 +12,10 @@ namespace ECommerce.BLL.Validation.Product
         {
 
 
-            RuleFor(x => x.CategoryId)
-                .GreaterThan(0)
-                .WithMessage("{PropertyName} must be greater than 0")
-                .When(x => x.CategoryId.HasValue);
+            //RuleFor(x => x.CategoryId)
+            //    .GreaterThan(0)
+            //    .WithMessage("{PropertyName} must be greater than 0")
+            //    .When(x => x.CategoryId.HasValue);
 
             RuleFor(x => x.MinPrice)
                 .GreaterThanOrEqualTo(0)

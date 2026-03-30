@@ -38,7 +38,7 @@ namespace ECommerce.API.Controllers
 
         [HttpGet("{id}")]
         [Authorize(Roles =DefaultRole.Admin)]
-        public async Task<ActionResult<ProductsResponse>> GetProductById([FromRoute] int id)
+        public async Task<ActionResult<ProductsResponse>> GetProductById([FromRoute] Guid id)
         {
             var result = await _productManager.GetProductById(id);
 

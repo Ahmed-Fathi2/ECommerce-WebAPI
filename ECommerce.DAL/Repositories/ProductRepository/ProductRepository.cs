@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ECommerce.DAL.Repositories.GenericRepository;
+using ECommerce.Domain;
 
 namespace ECommerce.DAL.Repositories.ProductRepository
 {
@@ -16,7 +17,7 @@ namespace ECommerce.DAL.Repositories.ProductRepository
             return products;
         }
 
-        public async Task<Product?> GetProductByCategoryAsync(int id)
+        public async Task<Product?> GetProductByCategoryAsync(Guid id)
         {
             var product=  await _dbContext.Products
                     .Include(c=>c.Category)

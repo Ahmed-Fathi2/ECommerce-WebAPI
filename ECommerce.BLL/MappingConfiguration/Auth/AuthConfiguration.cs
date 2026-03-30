@@ -1,6 +1,6 @@
 ﻿using Mapster;
 using ECommerce.BLL.Dtos.Auth;
-using ECommerce.DAL.Data.Entities;
+using ECommerce.Domain;
 
 namespace ECommerce.BLL.MappingConfiguration.Auth
 {

@@ -1,4 +1,4 @@
-﻿using ECommerce.BLL.Abstractions;
+﻿using ECommerce.BLL.Abstractions.ResultPattern;
 using ECommerce.BLL.Dtos.Auth;
 
 namespace ECommerce.BLL.Managers.Auth

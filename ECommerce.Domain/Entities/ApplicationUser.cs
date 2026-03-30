@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace ECommerce.DAL.Data.Entities
+namespace ECommerce.Domain
 {
     public class ApplicationUser : IdentityUser
     {
@@ -8,6 +8,10 @@ namespace ECommerce.DAL.Data.Entities
 
         public string LastName { get; set; } = string.Empty;
 
+
+        public ICollection<Cart> Carts { get; set; } = new HashSet<Cart>();
+
+        public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }
 

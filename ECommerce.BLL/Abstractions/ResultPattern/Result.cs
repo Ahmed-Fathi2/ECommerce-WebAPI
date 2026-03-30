@@ -1,4 +1,4 @@
-﻿namespace ECommerce.BLL.Abstractions
+﻿namespace ECommerce.BLL.Abstractions.ResultPattern
 {
     public class Result
     {
