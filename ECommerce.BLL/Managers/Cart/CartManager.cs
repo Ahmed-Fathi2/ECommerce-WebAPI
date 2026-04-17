@@ -101,5 +101,17 @@ namespace ECommerce.BLL.Managers.Cart
             return Result.Success();
         }
 
+        public async Task<Result> ClearCartAsync(string userId)
+        {
+            var cart =await _unitOfWork.CartRepository.GetUserCartAsync(userId);
+
+            if (cart == null)
+                return Result.Failure(CartError.CartNotFound);
+  
+            _unitOfWork.CartItemRepository.DeleteRange(cart.CartItems);
+            await _unitOfWork.SaveAsync();
+
+            return Result.Success();
+        }
     }
 }

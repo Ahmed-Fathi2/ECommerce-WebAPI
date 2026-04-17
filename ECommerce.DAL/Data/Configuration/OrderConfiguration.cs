@@ -19,6 +19,11 @@ namespace ECommerce.DAL.Data.Configuration
             builder.Property(o => o.TotalAmount)
                 .HasColumnType("decimal(18,2)");
 
+
+            builder.Property(o => o.PaymentStatus)
+                .HasConversion<string>()
+                .HasMaxLength(20);  
+
             builder.HasOne(o => o.ApplicationUser)
                    .WithMany(u=>u.Orders)
                    .HasForeignKey(o => o.ApplicationUserId)

@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace ECommerce.API.Extensions
+namespace ECommerce.API.Helpers
 {
     public static class ClaimsPrincipalExtensions
     {

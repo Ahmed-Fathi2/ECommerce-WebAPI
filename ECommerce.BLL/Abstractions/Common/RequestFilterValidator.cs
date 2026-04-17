@@ -1,11 +1,8 @@
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ECommerce.Common.Pagination
 {
-    public class RequestFilterValidator:AbstractValidator<BaseRequestFilter>
+    public class RequestFilterValidator : AbstractValidator<BaseRequestFilter>
     {
         public RequestFilterValidator()
         {

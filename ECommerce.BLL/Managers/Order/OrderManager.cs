@@ -9,23 +9,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ECommerce.BLL.Managers.Payment;
+using ECommerce.Common.Errors;
 
 namespace ECommerce.BLL.Managers.Order
 {
     public class OrderManager : IOrderManager
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPaymentService _paymentService;
 
-        public OrderManager(IUnitOfWork unitOfWork)
+        public OrderManager(IUnitOfWork unitOfWork,IPaymentService paymentService)
         {
             _unitOfWork = unitOfWork;
+            _paymentService = paymentService;
         }
 
-        public async Task<Result<Guid>> PlaceOrderAsync(string userId)
+        public async Task<Result<string>> PlaceOrderAsync(string origin, string userId)
         {
             var cart = await _unitOfWork.CartRepository.GetUserCartAsync(userId);
             if (cart == null || !cart.CartItems.Any())
-                return Result.Failure<Guid>(OrderError.CartIsEmpty);
+                return Result.Failure<string>(OrderError.CartIsEmpty);
 
             var order = new ECommerce.DAL.Entities.Order
             {
@@ -40,15 +44,26 @@ namespace ECommerce.BLL.Managers.Order
                 }).ToList()
             };
 
+            //var order = cart.Adapt<ECommerce.DAL.Entities.Order>();
+            //order.ApplicationUserId = userId;
+
             _unitOfWork.OrderRepository.Add(order);
+            await _unitOfWork.SaveAsync();
 
+            var result = await _paymentService.InitiatePaymentAsync(origin, order.Id);
 
-            // Clear the cart
-            _unitOfWork.CartItemRepository.DeleteRange(cart.CartItems);
+            if (!result.IsSuccess)
+            {
+                _unitOfWork.OrderRepository.Delete(order);
+                await _unitOfWork.SaveAsync();
+                return Result.Failure<string>(PaymentErrors.PaymentFailed);
+            }
+
+            order.SessionId = result.Value;
 
             await _unitOfWork.SaveAsync();
 
-            return Result.Success(order.Id);
+            return Result.Success(result.Value);
         }
 
         public async Task<Result<IEnumerable<OrderResponse>>> GetUserOrdersAsync(string userId)

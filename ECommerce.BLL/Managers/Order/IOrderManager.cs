@@ -8,7 +8,7 @@ namespace ECommerce.BLL.Managers.Order
 {
     public interface IOrderManager
     {
-        Task<Result<Guid>> PlaceOrderAsync(string userId);
+        Task<Result<string>> PlaceOrderAsync(string origin, string userId);
         Task<Result<IEnumerable<OrderResponse>>> GetUserOrdersAsync(string userId);
         Task<Result<OrderResponse>> GetOrderDetailsAsync(Guid orderId, string userId);
     }

@@ -12,6 +12,10 @@ namespace ECommerce.DAL.Entities
         public DateTime? UpdatedAt { get; set; }
 
 
+        public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
+        public string SessionId { get; set; } = string.Empty;
+        public string PaymentTransactionId { get; set; }=string.Empty;
+
 
         public string ApplicationUserId { get; set; }=string.Empty;
         public ApplicationUser ApplicationUser { get; set; } = default!;

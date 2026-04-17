@@ -11,5 +11,6 @@ namespace ECommerce.BLL.Managers.Cart
         Task<Result<CartResponse>> AddToCartAsync(string userId, AddToCartRequest request);
         Task<Result> UpdateCartItemAsync(string userId, UpdateCartItemRequest request);
         Task<Result> RemoveFromCartAsync(string userId, Guid productId);
+        Task<Result> ClearCartAsync(string userId);
     }
 }

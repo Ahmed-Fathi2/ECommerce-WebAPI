@@ -4,6 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>174a12b6-ad0d-4f6c-951e-66148f0cb050</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ECommerce.BLL\ECommerce.BLL.csproj" />
     <ProjectReference Include="..\ECommerce.Common\ECommerce.Common.csproj" />
+    <ProjectReference Include="..\ECommerce.DAL\ECommerce.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
