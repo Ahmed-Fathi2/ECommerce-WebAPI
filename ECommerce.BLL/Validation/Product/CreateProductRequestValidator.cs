@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using ECommerce.BLL.Dtos.Product;
 
 namespace ECommerce.BLL.Validation.Product
@@ -22,7 +22,7 @@ namespace ECommerce.BLL.Validation.Product
                 .GreaterThanOrEqualTo(0).WithMessage("Count cannot be negative");
 
             RuleFor(x => x.CategoryId)
-                .GreaterThan(0).WithMessage("CategoryId must be greater than 0");
+                .NotEmpty().WithMessage("CategoryId is required");
         }
     }
 }

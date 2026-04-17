@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ECommerce.Domain;
+using ECommerce.DAL.Entities;
 
 namespace ECommerce.DAL.Data.Configuration
 {

@@ -1,5 +1,5 @@
-﻿using ECommerce.Domain;
-using ECommerce.Domain.Enums;
+using ECommerce.DAL.Entities;
+using ECommerce.DAL.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

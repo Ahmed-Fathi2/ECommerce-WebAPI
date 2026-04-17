@@ -1,4 +1,4 @@
-﻿using ECommerce.DAL;
+using ECommerce.DAL;
 
 namespace ECommerce.BLL.Dtos.Product
 {
@@ -7,10 +7,10 @@ namespace ECommerce.BLL.Dtos.Product
 
      string Name,
      string Description,
-     int Price,
+     decimal Price,
      int Count,
      string ImageUrl,
-     int CategoryId
+     Guid CategoryId
     );
 }
 

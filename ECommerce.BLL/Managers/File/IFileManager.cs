@@ -1,4 +1,4 @@
-﻿using ECommerce.BLL.Abstractions.ResultPattern;
+using ECommerce.Common.ResultPattern;
 using ECommerce.BLL.Dtos.Product;
 
 namespace ECommerce.BLL.Managers.FileManager

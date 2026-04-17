@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,8 +8,10 @@ namespace ECommerce.BLL.Dtos.Product
     (
      string Name,
      string Description,
-     int Price,
-     int Count
+     decimal Price,
+     int Count,
+     Guid CategoryId,
+     string? ImageUrl = null
     );
 }
 

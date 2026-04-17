@@ -1,4 +1,4 @@
-﻿namespace ECommerce.BLL.Abstractions.Constants
+namespace ECommerce.Common.Constants
 {
     public class AssemblyMarker
     {

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +15,7 @@ namespace ECommerce.DAL.Repositories.GenericRepository
             return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public async Task<T?> GetByIdAsync(int id)
+        public async Task<T?> GetByIdAsync(Guid id)
         {
 
             return await _dbContext.Set<T>().FindAsync(id);
@@ -23,6 +23,16 @@ namespace ECommerce.DAL.Repositories.GenericRepository
         public void Add(T entity)
         {
             _dbContext.Set<T>().Add(entity);
+        }
+
+        public void AddRange(IEnumerable<T> entities)
+        {
+            _dbContext.Set<T>().AddRange(entities);
+        }
+
+        public void DeleteRange(IEnumerable<T> entities)
+        {
+            _dbContext.Set<T>().RemoveRange(entities);
         }
 
         public void Delete(T entity)

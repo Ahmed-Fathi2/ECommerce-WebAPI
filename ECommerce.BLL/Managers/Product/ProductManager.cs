@@ -1,12 +1,12 @@
-﻿using Mapster;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Dynamic.Core;
-using ECommerce.BLL.Abstractions.Errors.Product;
+using ECommerce.Common.Constants;
+using ECommerce.Common.Pagination;
+using ECommerce.Common.Errors.Product;
+using ECommerce.Common.ResultPattern;
 using ECommerce.BLL.Dtos.Product;
 using ECommerce.DAL.Repositories.UnitOfWork;
-using ECommerce.DAL;
-using ECommerce.BLL.Abstractions.ResultPattern;
-using ECommerce.BLL.Abstractions.Constants;
+using Mapster;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace ECommerce.BLL.Managers.Product
 {
@@ -59,8 +59,7 @@ namespace ECommerce.BLL.Managers.Product
                                            .AsNoTracking();
 
             //Pagination
-            var result = await PaginatedList<ProductsResponse>
-                            .CreateAsync(ProductsResponse, requestFilter.PageNumber, requestFilter.PageSize);
+            var result = await PaginatedList<ProductsResponse>.CreateAsync(ProductsResponse, requestFilter.PageNumber, requestFilter.PageSize);
 
             return Result.Success(result);
         }
@@ -79,7 +78,7 @@ namespace ECommerce.BLL.Managers.Product
         public async Task<Result<ProductsResponse>> AddProduct(CreateProductRequest createProductRequest)
         {
 
-            var product = createProductRequest.Adapt<ECommerce.Domain.Product>();
+            var product = createProductRequest.Adapt<ECommerce.DAL.Entities.Product>();
 
             _unitOfWork.ProductRepository.Add(product);
             await _unitOfWork.SaveAsync();
@@ -88,7 +87,7 @@ namespace ECommerce.BLL.Managers.Product
             var result = product.Adapt<ProductsResponse>();
             return Result.Success(result);
         }
-        public async Task<Result> UpdateProduct(int id, UpdateProductRequest UpdateProductRequest)
+        public async Task<Result> UpdateProduct(Guid id, UpdateProductRequest UpdateProductRequest)
         {
             var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
             if (product is null)
@@ -101,7 +100,7 @@ namespace ECommerce.BLL.Managers.Product
             return Result.Success();
         }
 
-        public async Task<Result> DeleteProduct(int id)
+        public async Task<Result> DeleteProduct(Guid id)
         {
             var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
             if (product is null)
@@ -113,9 +112,11 @@ namespace ECommerce.BLL.Managers.Product
             return Result.Success();
         }
 
-      
+
     }
 }
+
+
 
 
 

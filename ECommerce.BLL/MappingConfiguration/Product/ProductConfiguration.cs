@@ -1,4 +1,4 @@
-﻿using Mapster;
+using Mapster;
 using ECommerce.BLL.Dtos.Product;
 using ECommerce.DAL;
 
@@ -8,11 +8,8 @@ namespace ECommerce.BLL.MappingConfiguration.Product
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<ECommerce.Domain.Product, ProductsResponse>()
-                .Map(dest => dest.CaterogyId, src => src.Category.Id);
-
-            config.NewConfig<ECommerce.Domain.Product, ProductsResponse>()
-                .Map(dest => dest.CaterogyId, src => src.Category.Id);
+            config.NewConfig<ECommerce.DAL.Entities.Product, ProductsResponse>()
+                .Map(dest => dest.CategoryId, src => src.Category.Id);
 
             //ProductsResponse
         }

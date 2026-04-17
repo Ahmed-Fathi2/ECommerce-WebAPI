@@ -1,4 +1,4 @@
-﻿using ECommerce.BLL.Abstractions.ResultPattern;
+using ECommerce.Common.ResultPattern;
 
 namespace ECommerce.BLL.Managers.Email
 {

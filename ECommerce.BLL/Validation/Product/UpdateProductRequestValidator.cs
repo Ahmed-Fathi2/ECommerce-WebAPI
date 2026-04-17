@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using ECommerce.BLL.Dtos.Product;
 
 namespace ECommerce.BLL.Validation.Product

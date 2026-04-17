@@ -1,11 +1,11 @@
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using ECommerce.BLL.Abstractions.Auth;
-using ECommerce.BLL.Abstractions.Constants;
-using ECommerce.BLL.Abstractions.Errors.User;
+using ECommerce.Common.Constants;
+using ECommerce.Common.Errors.User;
 using ECommerce.BLL.Dtos.Auth;
-using ECommerce.Domain;
-using ECommerce.BLL.Abstractions.ResultPattern;
+using ECommerce.DAL.Entities;
+using ECommerce.Common.ResultPattern;
 
 
 namespace ECommerce.BLL.Managers.Auth
@@ -131,7 +131,7 @@ namespace ECommerce.BLL.Managers.Auth
             }
 
 
-            var roleResult = await _userManager.AddToRoleAsync(user, DefaultRole.User);
+            var roleResult = await _userManager.AddToRoleAsync(user, DefaultRole.Customer);
 
             if (!roleResult.Succeeded)
             {

@@ -1,9 +1,9 @@
-﻿using FluentValidation;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ECommerce.BLL.Abstractions.Common
+namespace ECommerce.Common.Pagination
 {
     public class RequestFilterValidator:AbstractValidator<BaseRequestFilter>
     {

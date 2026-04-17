@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using ECommerce.BLL.Abstractions.Common;
+using ECommerce.Common.Pagination;
 
 namespace ECommerce.BLL.Dtos.Product
 {

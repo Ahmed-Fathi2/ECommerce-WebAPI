@@ -1,4 +1,4 @@
-﻿using ECommerce.BLL.Abstractions.ResultPattern;
+using ECommerce.Common.ResultPattern;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

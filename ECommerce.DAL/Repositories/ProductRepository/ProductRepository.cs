@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ECommerce.DAL.Repositories.GenericRepository;
-using ECommerce.Domain;
+using ECommerce.DAL.Entities;
 
 namespace ECommerce.DAL.Repositories.ProductRepository
 {

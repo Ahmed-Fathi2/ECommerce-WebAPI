@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ECommerce.BLL.Abstractions;
 using ECommerce.BLL.Dtos.Product;
@@ -6,18 +6,13 @@ using ECommerce.BLL.Managers.FileManager;
 
 namespace ECommerce.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/image")]
     [ApiController]
-    public class FileController : ControllerBase
+    public class FileController(IFileManager fileManager, IWebHostEnvironment env) : ControllerBase
     {
-        private readonly IFileManager _fileManager;
-        private readonly IWebHostEnvironment _env;
+        private readonly IFileManager _fileManager = fileManager;
+        private readonly IWebHostEnvironment _env = env;
 
-        public FileController(IFileManager fileManager, IWebHostEnvironment env)
-        {
-            _fileManager = fileManager;
-            _env = env;
-        }
         [HttpPost("Upload")]
         public async Task<ActionResult> UploadFile([FromForm]UploadProductImageRequest file)
         {

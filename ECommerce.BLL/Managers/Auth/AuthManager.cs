@@ -1,10 +1,10 @@
 using ECommerce.BLL.Abstractions.Auth;
-using ECommerce.BLL.Abstractions.Constants;
-using ECommerce.BLL.Abstractions.Errors.User;
-using ECommerce.BLL.Abstractions.ResultPattern;
+using ECommerce.Common.Constants;
+using ECommerce.Common.Errors.User;
+using ECommerce.Common.ResultPattern;
 using ECommerce.BLL.Dtos.Auth;
 using ECommerce.BLL.Managers.Email;
-using ECommerce.Domain;
+using ECommerce.DAL.Entities;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
@@ -104,7 +104,7 @@ namespace ECommerce.BLL.Managers.Auth
             }
 
 
-            var roleResult = await _userManager.AddToRoleAsync(user, DefaultRole.User);
+            var roleResult = await _userManager.AddToRoleAsync(user, DefaultRole.Customer);
 
             if (!roleResult.Succeeded)
             {
@@ -116,23 +116,23 @@ namespace ECommerce.BLL.Managers.Auth
             //ToDo
             // Send Confirmation Email
 
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
 
 
 
-            var result = await _emailSender.SendEmailAsync(
-              email: user.Email!,
-              subject: "Confirm your email",
-              htmlMessage: $"<h1>Welcome {user.FirstName} {user.LastName} </h1><p>Please confirm your email by clicking the link below:</p><a href='{origin}/Auth/emailConfirmation?userId={user.Id}&code={code}'>Confirm Email</a>"
-            );
+            //var result = await _emailSender.SendEmailAsync(
+            //  email: user.Email!,
+            //  subject: "Confirm your email",
+            //  htmlMessage: $"<h1>Welcome {user.FirstName} {user.LastName} </h1><p>Please confirm your email by clicking the link below:</p><a href='{origin}/Auth/emailConfirmation?userId={user.Id}&code={code}'>Confirm Email</a>"
+            //);
 
-            if (!result.IsSuccess)
-            {
-                var error = result.Errors.First();
-                return Result.Failure(new Error(error.Code, error.Description, ErrorStatusCodes.BadRequest));
-            }
+            //if (!result.IsSuccess)
+            //{
+            //    var error = result.Errors.First();
+            //    return Result.Failure(new Error(error.Code, error.Description, ErrorStatusCodes.BadRequest));
+            //}
 
             return Result.Success();
 

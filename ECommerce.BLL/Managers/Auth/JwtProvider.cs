@@ -1,10 +1,10 @@
-﻿using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using ECommerce.BLL.Abstractions.Auth;
-using ECommerce.Domain;
+using ECommerce.DAL.Entities;
 
 namespace ECommerce.BLL.Managers.Auth
 {
@@ -28,7 +28,7 @@ namespace ECommerce.BLL.Managers.Auth
                //new(nameof(roles), JsonSerializer.Serialize(roles), JsonClaimValueTypes.JsonArray),
 
           
-                //Ù„ToDo---->>>  Add User_Permission
+                //لToDo---->>>  Add User_Permission
             };
 
             // Add User_Roles

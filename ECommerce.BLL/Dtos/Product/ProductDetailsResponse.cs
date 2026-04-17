@@ -1,16 +1,18 @@
-﻿using ECommerce.DAL;
+using ECommerce.DAL;
 
 namespace ECommerce.BLL.Dtos.Product
 {
     public record ProductDetailsResponse
     (
-        int Id,
+        Guid Id,
         string Name,
         string Description,
-        int Price,
+        decimal Price,
         int Count,
+        Guid CategoryId,
         string CategoryName,
-        string CategoryDescription
+        string CategoryDescription,
+        string? ImageUrl
         );
 }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,13 +6,14 @@ namespace ECommerce.BLL.Dtos.Product
 {
     public record ProductsResponse
     (
-        int Id,
+        Guid Id,
         string Name,
         string Description,
-        int Price,
+        decimal Price,
         int Count,
-        int CaterogyId,
-        string CategoryName
+        Guid CategoryId,
+        string CategoryName,
+        string? ImageUrl
     );
 }
 

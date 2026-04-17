@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using ECommerce.BLL.Abstractions.ResultPattern;
-using ECommerce.BLL.Abstractions.Constants;
+using ECommerce.Common.ResultPattern;
+using ECommerce.Common.Constants;
 
 namespace ECommerce.BLL.Managers.Email
 {

@@ -1,16 +1,16 @@
-﻿using System;
+using System;
 using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Text;
-using ECommerce.BLL.Abstractions.Errors.File;
-using ECommerce.BLL.Abstractions.ResultPattern;
+using ECommerce.Common.Errors.File;
+using ECommerce.Common.ResultPattern;
 using ECommerce.BLL.Dtos.Product;
 
 namespace ECommerce.BLL.Managers.FileManager
 {
     public class FileManager : IFileManager
     {
-        public async Task<Result<string>> UploadFileAsync(UploadProductImageRequest uploadFile,string baseUrl,string schema , string host)
+        public async Task<Result<string>> UploadFileAsync(UploadProductImageRequest uploadFile,string baseUrl,string? schema , string? host)
         {
             // Implement your file upload logic here, e.g., save the file to a storage service and return the URL
 
@@ -37,12 +37,6 @@ namespace ECommerce.BLL.Managers.FileManager
             var url = $"{schema}://{host}/uploads/{actualFileName}";
 
             return Result.Success(url);
-
-
-
-
-
-
 
         }
     }

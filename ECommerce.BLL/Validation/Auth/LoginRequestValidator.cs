@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using ECommerce.BLL.Dtos.Auth;
 
 namespace ECommerce.BLL.Validation.Auth

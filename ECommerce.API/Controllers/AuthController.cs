@@ -4,20 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 using ECommerce.BLL.Abstractions;
 using ECommerce.BLL.Dtos.Auth;
 using ECommerce.BLL.Managers.Auth;
-using ECommerce.BLL.Abstractions.ResultPattern;
+using ECommerce.Common.ResultPattern;
 
 namespace ECommerce.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController(IAuthManager authManger) : ControllerBase
     {
-        private readonly IAuthManager _authManger;
+        private readonly IAuthManager _authManger = authManger;
 
-        public AuthController(IAuthManager authManger)
-        {
-            _authManger = authManger;
-        }
         [HttpPost("register")]
 
         public async Task<ActionResult> Register(RegisterRequest registerRequest)
