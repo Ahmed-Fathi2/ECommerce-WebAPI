@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using ECommerce.BLL.Abstractions;
 using ECommerce.BLL.Dtos.Product;
 using ECommerce.BLL.Managers.FileManager;
@@ -8,6 +9,7 @@ namespace ECommerce.API.Controllers
 {
     [Route("api/image")]
     [ApiController]
+    [Authorize(Policy = "RequireAdmin")]
     public class FileController(IFileManager fileManager, IWebHostEnvironment env) : ControllerBase
     {
         private readonly IFileManager _fileManager = fileManager;

@@ -51,7 +51,7 @@ namespace ECommerce.DAL.SevicesExtension
                 options.User.RequireUniqueEmail = false;
 
 
-                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
 

@@ -18,7 +18,7 @@ namespace ECommerce.API.Controllers
         private readonly IWebHostEnvironment _env = env;
 
         [HttpGet]
-        //[Authorize]
+        [AllowAnonymous]
         public async Task<ActionResult<PaginatedList<ProductsResponse>>> GetAllProducts([FromQuery] ProductRequestFilter requestFilter)
         {
             var result = await _productManager.GetProducts(requestFilter);
@@ -27,7 +27,7 @@ namespace ECommerce.API.Controllers
 
 
         [HttpGet("{id}")]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<ActionResult<ProductDetailsResponse>> GetProductById([FromRoute] Guid id)
         {
             var result = await _productManager.GetProductById(id);
@@ -38,10 +38,14 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Policy = "RequireAdmin")]
+        [Authorize(Policy = "RequireAdmin")]
         public async Task<ActionResult> AddProduct([FromBody] CreateProductRequest CreateProductRequest)
         {
             var result = await _productManager.AddProduct(CreateProductRequest);
+
+            if(!result.IsSuccess)
+                return result.ToProblem();
+
             return CreatedAtAction("GetProductById", new { id = result.Value.Id }, result.Value);
         }
 

@@ -10,8 +10,7 @@ namespace ECommerce.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Policy = "RequireCustomer")]
-    //[Authorize(Roles = DefaultRole.Customer)]
+    [Authorize(Policy = "RequireCustomer")]
     public class OrdersController : ControllerBase
     {
         private readonly IOrderManager _orderManager;
@@ -22,7 +21,6 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles=DefaultRole.Customer)]
         public async Task<ActionResult> PlaceOrder()
         {
             var userId = User.GetUserId();

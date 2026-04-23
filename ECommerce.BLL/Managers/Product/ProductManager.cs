@@ -1,8 +1,9 @@
-using ECommerce.Common.Constants;
-using ECommerce.Common.Pagination;
-using ECommerce.Common.Errors.Product;
-using ECommerce.Common.ResultPattern;
 using ECommerce.BLL.Dtos.Product;
+using ECommerce.Common.Constants;
+using ECommerce.Common.Errors.Category;
+using ECommerce.Common.Errors.Product;
+using ECommerce.Common.Pagination;
+using ECommerce.Common.ResultPattern;
 using ECommerce.DAL.Repositories.UnitOfWork;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
@@ -77,6 +78,10 @@ namespace ECommerce.BLL.Managers.Product
         }
         public async Task<Result<ProductsResponse>> AddProduct(CreateProductRequest createProductRequest)
         {
+            var category = await _unitOfWork.CategoryRepository.GetByIdAsync(createProductRequest.CategoryId);
+            if (category is null)
+                return Result.Failure<ProductsResponse>(CategoryError.CategoryNotFound);
+
 
             var product = createProductRequest.Adapt<ECommerce.DAL.Entities.Product>();
 
@@ -92,6 +97,11 @@ namespace ECommerce.BLL.Managers.Product
             var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
             if (product is null)
                 return Result.Failure<ProductDetailsResponse>(ProductError.ProductNotFound);
+
+            var category = await _unitOfWork.CategoryRepository.GetByIdAsync(UpdateProductRequest.CategoryId);
+            if (category is null)
+                return Result.Failure<ProductsResponse>(CategoryError.CategoryNotFound);
+
 
             UpdateProductRequest.Adapt(product);
 

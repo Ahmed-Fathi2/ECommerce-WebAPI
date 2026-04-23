@@ -19,6 +19,7 @@ namespace ECommerce.API.Controllers
         private readonly IWebHostEnvironment _env = env;
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<PaginatedList<CategoryResponse>>> GetAllCategories([FromQuery] CategoryRequestFilter requestFilter)
         {
             var result = await _categoryManager.GetCategories(requestFilter);
@@ -26,6 +27,7 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<CategoryResponse>> GetCategoryById([FromRoute] Guid id)
         {
             var result = await _categoryManager.GetCategoryById(id);

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using ECommerce.BLL.Abstractions;
 using ECommerce.BLL.Dtos.Auth;
 using ECommerce.BLL.Managers.Auth;
@@ -10,6 +11,7 @@ namespace ECommerce.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthController(IAuthManager authManger) : ControllerBase
     {
         private readonly IAuthManager _authManger = authManger;
