@@ -1,10 +1,12 @@
+using ECommerce.Application.DTOs;
+using ECommerce.Application.Common.Settings;
 using ECommerce.API.Helpers;
-using ECommerce.BLL.Abstractions;
-using ECommerce.BLL.Dtos.Order;
-using ECommerce.BLL.Managers.Order;
-using ECommerce.Common.Constants;
+using ECommerce.Application.Common;
+using ECommerce.Application.DTOs;
+using ECommerce.Application.Common.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ECommerce.Application.Contracts;
 
 namespace ECommerce.API.Controllers
 {
@@ -13,11 +15,11 @@ namespace ECommerce.API.Controllers
     [Authorize(Policy = "RequireCustomer")]
     public class OrdersController : ControllerBase
     {
-        private readonly IOrderManager _orderManager;
+        private readonly IOrderService _orderManager;
 
-        public OrdersController(IOrderManager orderManager)
+        public OrdersController(IOrderService OrderService)
         {
-            _orderManager = orderManager;
+            _orderManager = OrderService;
         }
 
         [HttpPost]
@@ -53,3 +55,10 @@ namespace ECommerce.API.Controllers
         }
     }
 }
+
+
+
+
+
+
+

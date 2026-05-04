@@ -1,5 +1,7 @@
-﻿using ECommerce.API.Abstractions;
-using ECommerce.Common.Constants;
+using ECommerce.Application.Contracts;
+using ECommerce.Application.Common.Settings;
+using ECommerce.API.Abstractions;
+using ECommerce.Application.Common.Constants;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -70,3 +72,7 @@ namespace ECommerce.API.ServicesExtension
 
     }
 }
+
+
+
+

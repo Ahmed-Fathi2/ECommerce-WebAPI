@@ -1,6 +1,7 @@
-//using ECommerce.BLL.Abstractions;
-//using ECommerce.BLL.Managers.Auth;
-//using Microsoft.AspNetCore.Mvc;
+using ECommerce.Application.Contracts;
+using ECommerce.Application.Common.Settings;
+//using ECommerce.Application.Common;
+////using Microsoft.AspNetCore.Mvc;
 
 //namespace ECommerce.API.Controllers
 //{
@@ -8,21 +9,26 @@
 //    [ApiController]
 //    public class RoleController : ControllerBase
 //    {
-//        private readonly IAuthManager authManager;
+//        private readonly IAuthService AuthService;
 
-//        public RoleController(IAuthManager authManager)
+//        public RoleController(IAuthService AuthService)
 //        {
-//            this.authManager = authManager;
+//            this.AuthService = AuthService;
 //        }
 
 //        [HttpPost]
 //        public async Task<ActionResult> AddRole(string roleName)
 //        {
-//            var result = await authManager.AddRole(roleName);
+//            var result = await AuthService.AddRole(roleName);
 //            return result.IsSuccess ? Ok() : result.ToProblem();
 //        }
 //    }
 //}
+
+
+
+
+
 
 
 

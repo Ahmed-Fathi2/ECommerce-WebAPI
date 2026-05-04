@@ -1,14 +1,17 @@
+using ECommerce.Application.Common.Errors;
+using ECommerce.Application.Mappings;
+using ECommerce.Application.DTOs;
+using ECommerce.Application.Contracts;
+using ECommerce.Application.Common.Settings;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
-using ECommerce.BLL.Abstractions.Auth;
-using ECommerce.Common.Constants;
-using ECommerce.Common.Errors.User;
-using ECommerce.BLL.Dtos.Auth;
-using ECommerce.DAL.Entities;
-using ECommerce.Common.ResultPattern;
+using ECommerce.Application.Common.Auth;
+using ECommerce.Application.Common.Constants;
+using ECommerce.Domain.Entities;
+using ECommerce.Application.Common.ResultPattern;
 
 
-namespace ECommerce.BLL.Managers.Auth
+namespace ECommerce.Application.Services.Auth
 {
     public class Notes 
     {
@@ -149,6 +152,14 @@ namespace ECommerce.BLL.Managers.Auth
         }
     }
 }
+
+
+
+
+
+
+
+
 
 
 

@@ -1,9 +1,11 @@
+using ECommerce.Application.DTOs;
+using ECommerce.Application.Common.Settings;
 using ECommerce.API.Helpers;
-using ECommerce.BLL.Abstractions;
-using ECommerce.BLL.Dtos.Cart;
-using ECommerce.BLL.Managers.Cart;
+using ECommerce.Application.Common;
+using ECommerce.Application.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ECommerce.Application.Contracts;
 
 namespace ECommerce.API.Controllers
 {
@@ -11,9 +13,9 @@ namespace ECommerce.API.Controllers
     [ApiController]
     [Authorize(Policy = "RequireCustomer")]
     //[Authorize(Roles = "Admin,Customer")]
-    public class CartController(ICartManager cartManager) : ControllerBase
+    public class CartController(ICartService CartService) : ControllerBase
     {
-        private readonly ICartManager _cartManager = cartManager;
+        private readonly ICartService _cartManager = CartService;
 
         [HttpGet]
         public async Task<ActionResult<CartResponse>> GetCart()
@@ -48,3 +50,9 @@ namespace ECommerce.API.Controllers
         }
     }
 }
+
+
+
+
+
+

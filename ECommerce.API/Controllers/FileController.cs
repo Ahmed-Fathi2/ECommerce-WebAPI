@@ -1,18 +1,20 @@
+using ECommerce.Application.DTOs;
+using ECommerce.Application.Common.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using ECommerce.BLL.Abstractions;
-using ECommerce.BLL.Dtos.Product;
-using ECommerce.BLL.Managers.FileManager;
+using ECommerce.Application.Common;
+using ECommerce.Application.DTOs;
+using ECommerce.Application.Contracts;
 
 namespace ECommerce.API.Controllers
 {
     [Route("api/image")]
     [ApiController]
     [Authorize(Policy = "RequireAdmin")]
-    public class FileController(IFileManager fileManager, IWebHostEnvironment env) : ControllerBase
+    public class FileController(IFileService FileService, IWebHostEnvironment env) : ControllerBase
     {
-        private readonly IFileManager _fileManager = fileManager;
+        private readonly IFileService _fileManager = FileService;
         private readonly IWebHostEnvironment _env = env;
 
         [HttpPost("Upload")]
@@ -28,4 +30,10 @@ namespace ECommerce.API.Controllers
         }
     }
 }
+
+
+
+
+
+
 

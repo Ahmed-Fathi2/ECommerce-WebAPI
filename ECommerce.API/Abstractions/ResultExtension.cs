@@ -1,8 +1,11 @@
-using ECommerce.Common.ResultPattern;
+using ECommerce.Application.DTOs;
+using ECommerce.Application.Contracts;
+using ECommerce.Application.Common.Settings;
+using ECommerce.Application.Common.ResultPattern;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ECommerce.BLL.Abstractions;
+namespace ECommerce.Application.Common;
 
 public static class ResultExtensions
 {
@@ -33,5 +36,11 @@ public static class ResultExtensions
 
     }
 }
+
+
+
+
+
+
 
 

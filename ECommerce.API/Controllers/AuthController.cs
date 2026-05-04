@@ -1,20 +1,22 @@
+using ECommerce.Application.DTOs;
+using ECommerce.Application.Common.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using ECommerce.BLL.Abstractions;
-using ECommerce.BLL.Dtos.Auth;
-using ECommerce.BLL.Managers.Auth;
-using ECommerce.Common.ResultPattern;
+using ECommerce.Application.Common;
+using ECommerce.Application.DTOs;
+using ECommerce.Application.Common.ResultPattern;
+using ECommerce.Application.Contracts;
 
 namespace ECommerce.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
     [AllowAnonymous]
-    public class AuthController(IAuthManager authManger) : ControllerBase
+    public class AuthController(IAuthService authManger) : ControllerBase
     {
-        private readonly IAuthManager _authManger = authManger;
+        private readonly IAuthService _authManger = authManger;
 
         [HttpPost("register")]
 
@@ -48,6 +50,13 @@ namespace ECommerce.API.Controllers
         }
     }
 }
+
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,27 @@
+using ECommerce.Domain.Enums;
+
+namespace ECommerce.Domain.Entities
+{
+    public class Order : IAuditableEntity
+    {
+        public Guid Id { get; set; }
+
+        public OrderStatus OrderStatus { get; set; }= OrderStatus.Pending;
+        public decimal TotalAmount { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+
+
+        public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
+        public string SessionId { get; set; } = string.Empty;
+        public string PaymentTransactionId { get; set; }=string.Empty;
+
+
+        public string ApplicationUserId { get; set; }=string.Empty;
+        public ApplicationUser ApplicationUser { get; set; } = default!;
+
+
+        public ICollection<OrderItem> OrderItems { get; set; } = new HashSet<OrderItem>();
+    }
+}
+

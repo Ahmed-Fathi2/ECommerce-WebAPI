@@ -1,7 +1,9 @@
+using ECommerce.Application.Contracts;
+using ECommerce.Application.Common.Settings;
 using ECommerce.API.ServicesExtension;
-using ECommerce.BLL.ServicesExtension;
-using ECommerce.DAL.Seeders;
-using ECommerce.DAL.SevicesExtension;
+using ECommerce.Application;
+using ECommerce.Infrastructure.Seeders;
+using ECommerce.Infrastructure;
 
 namespace ECommerce.API
 {
@@ -13,8 +15,8 @@ namespace ECommerce.API
 
             // Add services to the container.
 
-          builder.Services.AddDAlServices(builder.Configuration)
-                          .AddBLLServices(builder.Configuration)
+          builder.Services.AddInfrastructureServices(builder.Configuration)
+                          .AddApplicationServices(builder.Configuration)
                           .AddApiServices();
 
 
@@ -49,4 +51,8 @@ namespace ECommerce.API
         }
     }
 }
+
+
+
+
 

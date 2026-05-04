@@ -1,3 +1,5 @@
+using ECommerce.Application.Contracts;
+using ECommerce.Application.Common.Settings;
 using System.Security.Claims;
 
 namespace ECommerce.API.Helpers
@@ -10,3 +12,5 @@ namespace ECommerce.API.Helpers
         }
     }
 }
+
+

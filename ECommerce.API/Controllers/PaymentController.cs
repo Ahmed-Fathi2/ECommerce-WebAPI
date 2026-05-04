@@ -1,19 +1,22 @@
-﻿using ECommerce.BLL.Managers.Cart;
-using ECommerce.DAL.Enums;
-using ECommerce.DAL.Repositories.UnitOfWork;
+using ECommerce.Application.DTOs;
+using ECommerce.Domain.Repositories;
+using ECommerce.Application.Common.Settings;
+using ECommerce.Domain.Enums;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using ECommerce.Application.Contracts;
 
 namespace ECommerce.API.Controllers
 {
     [ApiController]
-    public class PaymentController(IUnitOfWork unitOfWork,ICartManager cartManager) : Controller
+    public class PaymentController(IUnitOfWork unitOfWork,ICartService CartService) : Controller
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private readonly ICartManager _cartManager = cartManager;
+        private readonly ICartService _cartManager = CartService;
 
         [HttpGet("payment/callback")]
         public IActionResult Callback()
@@ -117,3 +120,10 @@ namespace ECommerce.API.Controllers
         }
     }
 }
+
+
+
+
+
+
+
