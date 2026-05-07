@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ECommerce.Application.Contracts;
+using ECommerce.Infrastructure.Authentication;
+using ECommerce.Application.Common.Auth;
 
 namespace ECommerce.Infrastructure
 {
@@ -68,6 +70,11 @@ namespace ECommerce.Infrastructure
 
             services.AddScoped<IFileService, ECommerce.Infrastructure.ExternalServices.FileService>();
          services.AddScoped<IEmailSender, ECommerce.Infrastructure.ExternalServices.EmailSender>();
+         services.AddScoped<IBlobStorageService, ECommerce.Infrastructure.ExternalServices.BlobStorageService>();
+
+         services.AddScoped<IAuthService, AuthService>();
+         services.AddSingleton<IJwtProvider, JwtProvider>();
+
          return services;
         }
     }

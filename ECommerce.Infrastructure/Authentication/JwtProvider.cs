@@ -7,7 +7,7 @@ using System.Text.Json;
 using ECommerce.Application.Common.Auth;
 using ECommerce.Domain.Entities;
 
-namespace ECommerce.Application.Services
+namespace ECommerce.Infrastructure.Authentication
 {
     // Empty implementation of IJwtProvider
     public class JwtProvider : IJwtProvider
@@ -29,7 +29,7 @@ namespace ECommerce.Application.Services
                //new(nameof(roles), JsonSerializer.Serialize(roles), JsonClaimValueTypes.JsonArray),
 
           
-                //لToDo---->>>  Add User_Permission
+                //ToDo---->>>  Add User_Permission
             };
 
             // Add User_Roles
@@ -57,9 +57,3 @@ namespace ECommerce.Application.Services
         }
     }
 }
-
-
-
-
-
-

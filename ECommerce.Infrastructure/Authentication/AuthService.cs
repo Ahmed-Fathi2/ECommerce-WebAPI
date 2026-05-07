@@ -11,8 +11,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using ECommerce.Application.Contracts;
 
-
-namespace ECommerce.Application.Services
+namespace ECommerce.Infrastructure.Authentication
 {
     public class AuthService : IAuthService
     {
@@ -169,20 +168,3 @@ namespace ECommerce.Application.Services
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

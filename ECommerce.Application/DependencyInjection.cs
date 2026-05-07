@@ -26,9 +26,7 @@ namespace ECommerce.Application
            services.AddScoped<ICategoryService, CategoryService>();
            services.AddScoped<ICartService, CartService>();
            services.AddScoped<IOrderService, OrderService>();
-                      services.AddScoped<IAuthService, AuthService>();
-           services.AddSingleton<IJwtProvider, JwtProvider>();
-                      services.AddHttpClient<IPaymentService,PaymentService>();
+           services.AddHttpClient<IPaymentService,PaymentService>();
            services.AddScoped<IPaymentService, PaymentService>();
 
             services
@@ -48,16 +46,10 @@ namespace ECommerce.Application
 
 
             services.Configure<BlobStorageSettings>
-                (configuration.GetSection("BlobStorage"));
+                (configuration.GetSection(BlobStorageSettings.SectionName));
 
             return services;
  
         }
     }
 }
-
-
-
-
-
-
