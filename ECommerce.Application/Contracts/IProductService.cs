@@ -8,7 +8,7 @@ namespace ECommerce.Application.Contracts
     public interface IProductService
     {
 
-        Task<Result<IEnumerable<ProductsResponse>>> GetAllProducts();
+        //Task<Result<IEnumerable<ProductsResponse>>> GetAllProducts();
 
         Task<Result<PaginatedList<ProductsResponse>>> GetProducts(ProductRequestFilter requestFilter);
         Task<Result<ProductDetailsResponse>> GetProductById(Guid id);

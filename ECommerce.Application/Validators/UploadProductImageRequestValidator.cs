@@ -8,7 +8,7 @@ namespace ECommerce.Application.Validators
     {
 
         public readonly string[] BlockedSignature = ["4D-5A", "2F-2A", "D0-CF"];  // exe, msi, js
-        public readonly string[] AllowedImagesExtensions = [".jpg", ".jpeg", ".png"];  
+        public readonly string[] AllowedImagesExtensions = [".jpg", ".jpeg", ".png",".pdf",".mp4"];  
         public UploadProductImageRequestValidator()
         {
 
@@ -58,7 +58,7 @@ namespace ECommerce.Application.Validators
                 return false;
 
             })
-            .WithMessage("File extension is not allowed.")
+            .WithMessage("File extension is not allowed. Allowed extensions are: " + string.Join(", ", AllowedImagesExtensions))
             .When(x=>x.File is not null);
 
             //FileName

@@ -15,22 +15,24 @@ namespace ECommerce.Application.Services
     public class ProductService : IProductService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IBlobStorageService _blobStorageService;
 
-        public ProductService(IUnitOfWork unitOfWork)
+        public ProductService(IUnitOfWork unitOfWork , IBlobStorageService blobStorageService)
         {
             _unitOfWork = unitOfWork;
+            _blobStorageService = blobStorageService;
         }
 
-        public async Task<Result<IEnumerable<ProductsResponse>>> GetAllProducts()
-        {
-            var products = await _unitOfWork.ProductRepository.GetAllAsync();
+        //public async Task<Result<IEnumerable<ProductsResponse>>> GetAllProducts()
+        //{
+        //    var products = await _unitOfWork.ProductRepository.GetAllAsync();
 
-            var result = products.Adapt<IEnumerable<ProductsResponse>>();
+        //    var result = products.Adapt<IEnumerable<ProductsResponse>>();
 
-            return Result.Success(result);
+        //    return Result.Success(result);
 
 
-        }
+        //}
 
         public async Task<Result<PaginatedList<ProductsResponse>>> GetProducts(ProductRequestFilter requestFilter)
         {
@@ -60,8 +62,15 @@ namespace ECommerce.Application.Services
             var ProductsResponse = query.ProjectToType<ProductsResponse>()
                                            .AsNoTracking();
 
+      
+
             //Pagination
             var result = await PaginatedList<ProductsResponse>.CreateAsync(ProductsResponse, requestFilter.PageNumber, requestFilter.PageSize);
+
+            //foreach (var product in result.Items)
+            //{
+            //    product.ImageUrl = _blobStorageService.GetBlobSasUrl(product.ImageUrl);
+            //}
 
             return Result.Success(result);
         }
@@ -73,6 +82,8 @@ namespace ECommerce.Application.Services
                 return Result.Failure<ProductDetailsResponse>(ProductError.ProductNotFound);
 
             var result = product.Adapt<ProductDetailsResponse>();
+
+            result.ImageUrl= _blobStorageService.GetBlobSasUrl(product.ImageUrl);
 
             return Result.Success(result);
 
@@ -91,6 +102,9 @@ namespace ECommerce.Application.Services
 
 
             var result = product.Adapt<ProductsResponse>();
+
+            //result.ImageUrl = _blobStorageService.GetBlobSasUrl(product.ImageUrl);
+
             return Result.Success(result);
         }
         public async Task<Result> UpdateProduct(Guid id, UpdateProductRequest UpdateProductRequest)

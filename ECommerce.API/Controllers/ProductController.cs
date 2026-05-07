@@ -39,7 +39,7 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "RequireAdmin")]
+        //[Authorize(Policy = "RequireAdmin")]
         public async Task<ActionResult> AddProduct([FromBody] CreateProductRequest CreateProductRequest)
         {
             var result = await _productManager.AddProduct(CreateProductRequest);
