@@ -19,6 +19,7 @@ namespace ECommerce.Infrastructure.Seeders
                         await _roleManager.CreateAsync(new IdentityRole (role));
                     }
 
+                    
                 }
 
             }
