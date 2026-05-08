@@ -22,7 +22,7 @@ namespace ECommerce.Infrastructure.ExternalServices
             var file = uploadFile.File;
             var extension = Path.GetExtension(file.FileName).ToLower();
             var fileName = Path.GetFileNameWithoutExtension(file.FileName).Replace(" ", "_").ToLower();
-            var actualFileName = $" {fileName}-{Guid.NewGuid().ToString()}{extension}";
+            var actualFileName = $"{fileName}-{Guid.NewGuid()}{extension}";
 
             var directory = Path.Combine(baseUrl, "uploads"); // C:\Projects\MyApp\wwwroot\uploads
 

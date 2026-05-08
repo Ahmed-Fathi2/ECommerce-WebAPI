@@ -1,13 +1,9 @@
-using ECommerce.Application.DTOs;
-using ECommerce.Application.Common.Settings;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using ECommerce.Application.Common;
-using ECommerce.Application.DTOs;
 using ECommerce.Application.Common.ResultPattern;
 using ECommerce.Application.Contracts;
+using ECommerce.Application.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
 {
@@ -23,8 +19,8 @@ namespace ECommerce.API.Controllers
         public async Task<ActionResult> Register(RegisterRequest registerRequest)
         {
             var origin = Request.Headers.Origin.ToString(); // Scheme + Host + Port (e.g., http://localhost:3000)
-            var result = await _authManger.RegisterAsync(registerRequest,origin);  
-            
+            var result = await _authManger.RegisterAsync(registerRequest, origin);
+
             return result.IsSuccess ? Ok() : result.ToProblem();
         }
 
@@ -40,13 +36,13 @@ namespace ECommerce.API.Controllers
 
 
         [HttpGet("emailConfirmation")]
-        public async Task<ActionResult<Result>> EmailConfirmation([FromQuery]EmailConfirmationRequest emailConfirmationRequest)
+        public async Task<ActionResult<Result>> EmailConfirmation([FromQuery] EmailConfirmationRequest emailConfirmationRequest)
         {
 
             var result = await _authManger.ConfirmEmail(emailConfirmationRequest);
 
             return result.IsSuccess ? Ok() : result.ToProblem();
-          
+
         }
     }
 }
