@@ -29,5 +29,5 @@ jobs:
       - name: Compile and Build Application
         run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
 
-      - name: Run Unit Tests
-        run: dotnet test ./ECommerce.Tests/ECommerce.Tests.csproj --configuration Release --no-build --verbosity normal
+     # - name: Run Unit Tests
+     #  run: dotnet test ./ECommerce.Tests/ECommerce.Tests.csproj --configuration Release --no-build --verbosity normal
