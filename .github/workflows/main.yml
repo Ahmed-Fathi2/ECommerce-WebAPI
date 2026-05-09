@@ -1,4 +1,4 @@
-name: E-Commerce API CI 🏗️
+name: E-Commerce API CI 
 
 on:
   workflow_dispatch:
