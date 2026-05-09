@@ -46,7 +46,7 @@ jobs:
         uses: Azure/webapps-deploy@v3.0.0
         id: deploy-to-webapp
         with:
-          app-name: 'ecommerce-api-service-dev'
+          app-name: 'ecommerce-api-service'
           publish-profile: ${{ secrets.PUBLISH_PROFILE_DEV }}
 
   deploy-prod:
@@ -64,5 +64,5 @@ jobs:
         uses: Azure/webapps-deploy@v3.0.0
         id: deploy-to-webapp
         with:
-          app-name: 'ecommerce-api-service-prod'
+          app-name: 'ecommerce-api-service'
           publish-profile: ${{ secrets.PUBLISH_PROFILE_PROD }}
