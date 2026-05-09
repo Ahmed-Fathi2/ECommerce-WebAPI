@@ -1,4 +1,4 @@
-name: E-Commerce API Release
+name: E-Commerce API CD
 
 on:
   push:
