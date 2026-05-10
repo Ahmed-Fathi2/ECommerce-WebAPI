@@ -4,6 +4,7 @@ using ECommerce.API.ServicesExtension;
 using ECommerce.Application;
 using ECommerce.Infrastructure.Seeders;
 using ECommerce.Infrastructure;
+using Serilog;
 
 namespace ECommerce.API
 {
@@ -18,6 +19,17 @@ namespace ECommerce.API
           builder.Services.AddInfrastructureServices(builder.Configuration)
                           .AddApplicationServices(builder.Configuration)
                           .AddApiServices();
+
+            builder.Host.UseSerilog((hostingContext, configuration) =>
+            {
+                configuration.ReadFrom.Configuration(hostingContext.Configuration);
+            });
+
+
+            //builder.Host.UseSerilog((context,config) =>
+            //{
+            //    config.MinimumLevel.Information().WriteTo.Console();
+            //});
 
 
             var app = builder.Build();
@@ -36,6 +48,7 @@ namespace ECommerce.API
                 app.MapOpenApi();
             //}
 
+            app.UseSerilogRequestLogging();
             app.UseCors("AllowAll");
 
             app.UseAuthentication();

@@ -1,17 +1,16 @@
-using ECommerce.Domain.Repositories;
-using ECommerce.Application.Common.Settings;
 using ECommerce.Application.Common.Errors;
 using ECommerce.Application.Common.ResultPattern;
-using ECommerce.Domain.Entities;
+using ECommerce.Application.Common.Settings;
+using ECommerce.Application.Contracts;
+using ECommerce.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
-using ECommerce.Application.Contracts;
 
-namespace ECommerce.Application.Services
+namespace ECommerce.Infrastructure.ExternalServices
 {
-    public class PaymentService(IUnitOfWork unitOfWork ,
+    public class PaymentService(IUnitOfWork unitOfWork,
         IOptions<KashierSetting> options,
         HttpClient httpClient,
         ILogger<PaymentService> logger) : IPaymentService
@@ -23,7 +22,7 @@ namespace ECommerce.Application.Services
 
         public async Task<Result<string>> InitiatePaymentAsync(string origin, Guid orderId)
         {
-           
+
             var order = await _unitOfWork.OrderRepository.GetByIdAsync(orderId);
             if (order is null)
                 return Result.Failure<string>(OrderError.OrderNotFound);
@@ -31,13 +30,13 @@ namespace ECommerce.Application.Services
             //  Build request body (Kashier API format)
             var requestBody = new
             {
-                expireAt = DateTime.UtcNow.AddMinutes(30).ToString("o"), 
+                expireAt = DateTime.UtcNow.AddMinutes(30).ToString("o"),
                 maxFailureAttempts = 3,
                 paymentType = "credit",
 
-                amount = order.TotalAmount.ToString("F2"), 
+                amount = order.TotalAmount.ToString("F2"),
                 currency = "EGP",
-               
+
                 order = order.Id.ToString(),
                 merchantId = _options.MerchantId,
 
@@ -85,7 +84,7 @@ namespace ECommerce.Application.Services
                     response.StatusCode, responseBody);
                 return Result.Failure<string>(PaymentErrors.PaymentFailed);
             }
-           
+
             // 8 Parse response
             using var doc = JsonDocument.Parse(responseBody);
 
@@ -95,7 +94,7 @@ namespace ECommerce.Application.Services
                 _logger.LogWarning("Kashier API response missing sessionUrl. Response: {ResponseBody}", responseBody);
                 return Result.Failure<string>(PaymentErrors.PaymentFailed);
             }
-            
+
 
             var sessionUrl = sessionUrlElement.GetString();
 
@@ -107,7 +106,7 @@ namespace ECommerce.Application.Services
             return Result.Success(sessionUrl!);
         }
     }
-    
+
 }
 
 

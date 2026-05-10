@@ -68,9 +68,10 @@ namespace ECommerce.Infrastructure
 
 
 
-            services.AddScoped<IFileService, ECommerce.Infrastructure.ExternalServices.FileService>();
+         services.AddScoped<IFileService, ECommerce.Infrastructure.ExternalServices.FileService>();
          services.AddScoped<IEmailSender, ECommerce.Infrastructure.ExternalServices.EmailSender>();
          services.AddScoped<IBlobStorageService, ECommerce.Infrastructure.ExternalServices.BlobStorageService>();
+         services.AddHttpClient<IPaymentService, ECommerce.Infrastructure.ExternalServices.PaymentService>();
 
          services.AddScoped<IAuthService, AuthService>();
          services.AddSingleton<IJwtProvider, JwtProvider>();

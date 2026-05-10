@@ -24,6 +24,9 @@ namespace ECommerce.API.ServicesExtension
             services.AddSwaggerGen();
 
 
+
+
+
             services.AddAuthentication(option =>
               {
                   // Tell the app to use JWT Bearer authentication by default

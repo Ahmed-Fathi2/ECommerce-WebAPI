@@ -26,8 +26,7 @@ namespace ECommerce.Application
            services.AddScoped<ICategoryService, CategoryService>();
            services.AddScoped<ICartService, CartService>();
            services.AddScoped<IOrderService, OrderService>();
-           services.AddHttpClient<IPaymentService,PaymentService>();
-           services.AddScoped<IPaymentService, PaymentService>();
+
 
             services
                 .AddFluentValidationAutoValidation()// in fluent validation.AspNetCore

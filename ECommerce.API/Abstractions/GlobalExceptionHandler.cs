@@ -7,8 +7,18 @@ namespace ECommerce.API.Abstractions
 {
     public class GlobalExceptionHandler : Microsoft.AspNetCore.Diagnostics.IExceptionHandler
     {
+        private readonly ILogger<GlobalExceptionHandler> _logger;
+
+        public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
+        {
+            _logger = logger;
+        }
+
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
+            // Log the exception with the request path for better diagnostics
+            _logger.LogError(exception, "An unhandled exception occurred. Path: {Path}", httpContext.Request.Path); 
+
             var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,

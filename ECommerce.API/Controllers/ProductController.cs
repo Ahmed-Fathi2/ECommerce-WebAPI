@@ -22,6 +22,7 @@ namespace ECommerce.API.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<PaginatedList<ProductsResponse>>> GetAllProducts([FromQuery] ProductRequestFilter requestFilter)
         {
+            //throw new Exception("Test exception for Serilog logging");
             var result = await _productManager.GetProducts(requestFilter);
             return Ok(result.Value);
         }
