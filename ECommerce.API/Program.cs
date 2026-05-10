@@ -26,10 +26,7 @@ namespace ECommerce.API
             });
 
 
-            //builder.Host.UseSerilog((context,config) =>
-            //{
-            //    config.MinimumLevel.Information().WriteTo.Console();
-            //});
+         
 
 
             var app = builder.Build();
