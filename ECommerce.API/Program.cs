@@ -38,12 +38,12 @@ namespace ECommerce.API
 
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsProduction())
-            {
+            //if (app.Environment.IsProduction())
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI();
                 app.MapOpenApi();
-            }
+            //}
 
             app.UseSerilogRequestLogging();
             app.UseCors("AllowAll");
