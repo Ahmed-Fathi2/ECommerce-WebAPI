@@ -8,16 +8,22 @@ using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using ECommerce.Application.Contracts;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 
 namespace ECommerce.Application.Services
 {
     public class CategoryService : ICategoryService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMemoryCache _memoryCache;
+        private readonly ILogger<CategoryService> _logger;
 
-        public CategoryService(IUnitOfWork unitOfWork)
+        public CategoryService(IUnitOfWork unitOfWork , IMemoryCache memoryCache ,ILogger<CategoryService> logger)
         {
             _unitOfWork = unitOfWork;
+            _memoryCache = memoryCache;
+            _logger = logger;
         }
 
         public async Task<Result<IEnumerable<CategoryResponse>>> GetAllCategories()
@@ -55,7 +61,18 @@ namespace ECommerce.Application.Services
 
         public async Task<Result<CategoryResponse>> GetCategoryById(Guid id)
         {
-            var category = await _unitOfWork.CategoryRepository.GetByIdAsync(id);
+            string cacheKey = $"Category_{id}";
+
+            var category = await _memoryCache.GetOrCreateAsync(
+                cacheKey,
+                entry =>
+                {
+                    entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(10));
+
+                    _logger.LogInformation($"Cache MISS : Going to DB, Key: {cacheKey}");
+
+                    return _unitOfWork.CategoryRepository.GetByIdAsync(id);
+                });
 
             if (category is null)
                 return Result.Failure<CategoryResponse>(CategoryError.CategoryNotFound);
@@ -84,6 +101,8 @@ namespace ECommerce.Application.Services
             updateCategoryRequest.Adapt(category);
 
             await _unitOfWork.SaveAsync();
+
+            _memoryCache.Remove($"Category_{id}");
 
             return Result.Success();
         }

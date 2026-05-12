@@ -1,31 +1,24 @@
-using ECommerce.Application.Validators;
-using ECommerce.Application.Mappings;
-using ECommerce.Application.Services;
-using ECommerce.Application.Common.Auth;
-using ECommerce.Application.Common.Settings;
 using ECommerce.Application.Common.Constants;
+using ECommerce.Application.Common.Settings;
+using ECommerce.Application.Contracts;
+using ECommerce.Application.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Mapster;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using ECommerce.Application.Contracts;
 
 namespace ECommerce.Application
 {
     public static class DependencyInjection
     {
 
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
-           services.AddScoped<IProductService, ProductService>();
-           services.AddScoped<ICategoryService, CategoryService>();
-           services.AddScoped<ICartService, CartService>();
-           services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IOrderService, OrderService>();
 
 
             services
@@ -34,10 +27,10 @@ namespace ECommerce.Application
 
 
             // only if you want to use IMapper Interface 
-            services.AddMapster(); 
+            services.AddMapster();
 
             // for Custom Mapping
-            var config = TypeAdapterConfig.GlobalSettings; 
+            var config = TypeAdapterConfig.GlobalSettings;
             config.Scan(typeof(AssemblyMarker).Assembly);
 
             services.Configure<KashierSetting>
@@ -47,8 +40,10 @@ namespace ECommerce.Application
             services.Configure<BlobStorageSettings>
                 (configuration.GetSection(BlobStorageSettings.SectionName));
 
+            services.AddMemoryCache();
+
             return services;
- 
+
         }
     }
 }

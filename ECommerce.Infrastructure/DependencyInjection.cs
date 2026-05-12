@@ -13,70 +13,78 @@ using System.Text;
 using ECommerce.Application.Contracts;
 using ECommerce.Infrastructure.Authentication;
 using ECommerce.Application.Common.Auth;
+using ECommerce.Infrastructure.ExternalServices;
 
 namespace ECommerce.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-         services.AddDbContext<AppDbContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
+               {
+                   options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+               });
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                   .AddEntityFrameworkStores<AppDbContext>()
+                   .AddDefaultTokenProviders()
+                   .AddSignInManager();
+
+
+
+            services.Configure<IdentityOptions>(options =>
+               {
+                   // Password settings.
+                   options.Password.RequireDigit = true;
+                   options.Password.RequireLowercase = true;
+                   options.Password.RequireNonAlphanumeric = true;
+                   options.Password.RequireUppercase = true;
+                   options.Password.RequiredLength = 8;
+                   options.Password.RequiredUniqueChars = 1;
+
+                   // Lockout settings.
+                   options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                   options.Lockout.MaxFailedAccessAttempts = 5;
+                   options.Lockout.AllowedForNewUsers = true;
+
+                   // User settings.
+                   options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+
+                   options.User.RequireUniqueEmail = false;
+
+
+                   options.SignIn.RequireConfirmedEmail = false;
+                   options.SignIn.RequireConfirmedPhoneNumber = false;
+               });
+
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<ICartItemRepository, CartItemRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDataBaseSeeder, DataBaseSeeder>();
+            services.AddScoped<IRoleSeeder, RoleSeeder>();
+
+
+
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<IBlobStorageService, BlobStorageService>();
+            services.AddHttpClient<IPaymentService, PaymentService>();
+            services.AddScoped<ICacheService, RedisCacheService>();
+
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddSingleton<IJwtProvider, JwtProvider>();
+
+            services.AddStackExchangeRedisCache(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            });
-         services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders()
-                .AddSignInManager();
-
-
-
-         services.Configure<IdentityOptions>(options =>
-            {
-                // Password settings.
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 8;
-                options.Password.RequiredUniqueChars = 1;
-
-                // Lockout settings.
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.AllowedForNewUsers = true;
-
-                // User settings.
-                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-
-                options.User.RequireUniqueEmail = false;
-
-
-                options.SignIn.RequireConfirmedEmail = false;
-                options.SignIn.RequireConfirmedPhoneNumber = false;
+                options.Configuration = configuration.GetConnectionString("Redis");
+                options.InstanceName= "ECommerceCache_";
             });
 
-
-         services.AddScoped<IProductRepository, ProductRepository>();
-         services.AddScoped<ICategoryRepository, CategoryRepository>();
-         services.AddScoped<ICartRepository, CartRepository>();
-         services.AddScoped<ICartItemRepository, CartItemRepository>();
-         services.AddScoped<IOrderRepository, OrderRepository>();
-         services.AddScoped<IUnitOfWork, UnitOfWork>();
-         services.AddScoped<IDataBaseSeeder, DataBaseSeeder>();
-         services.AddScoped<IRoleSeeder, RoleSeeder>();
-
-
-
-         services.AddScoped<IFileService, ECommerce.Infrastructure.ExternalServices.FileService>();
-         services.AddScoped<IEmailSender, ECommerce.Infrastructure.ExternalServices.EmailSender>();
-         services.AddScoped<IBlobStorageService, ECommerce.Infrastructure.ExternalServices.BlobStorageService>();
-         services.AddHttpClient<IPaymentService, ECommerce.Infrastructure.ExternalServices.PaymentService>();
-
-         services.AddScoped<IAuthService, AuthService>();
-         services.AddSingleton<IJwtProvider, JwtProvider>();
-
-         return services;
+            return services;
         }
     }
 }

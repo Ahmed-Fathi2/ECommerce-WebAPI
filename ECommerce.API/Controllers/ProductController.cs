@@ -53,7 +53,7 @@ namespace ECommerce.API.Controllers
 
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "RequireAdmin")]
+        //[Authorize(Policy = "RequireAdmin")]
         public async Task<ActionResult> UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductRequest UpdateProductRequest)
         {
             var result = await _productManager.UpdateProduct(id, UpdateProductRequest);

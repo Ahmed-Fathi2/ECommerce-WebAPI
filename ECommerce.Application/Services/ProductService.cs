@@ -1,14 +1,14 @@
-using ECommerce.Application.Common.Errors;
-using ECommerce.Application.Mappings;
-using ECommerce.Application.DTOs;
-using ECommerce.Domain.Repositories;
 using ECommerce.Application.Common.Constants;
+using ECommerce.Application.Common.Errors;
 using ECommerce.Application.Common.Pagination;
 using ECommerce.Application.Common.ResultPattern;
+using ECommerce.Application.Contracts;
+using ECommerce.Application.DTOs;
+using ECommerce.Application.Mappings;
+using ECommerce.Domain.Repositories;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
-using ECommerce.Application.Contracts;
 
 namespace ECommerce.Application.Services
 {
@@ -16,11 +16,13 @@ namespace ECommerce.Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IBlobStorageService _blobStorageService;
+        private readonly ICacheService _cacheService;
 
-        public ProductService(IUnitOfWork unitOfWork , IBlobStorageService blobStorageService)
+        public ProductService(IUnitOfWork unitOfWork , IBlobStorageService blobStorageService,ICacheService cacheService)
         {
             _unitOfWork = unitOfWork;
             _blobStorageService = blobStorageService;
+            _cacheService = cacheService;
         }
 
         //public async Task<Result<IEnumerable<ProductsResponse>>> GetAllProducts()
@@ -67,25 +69,33 @@ namespace ECommerce.Application.Services
             //Pagination
             var result = await PaginatedList<ProductsResponse>.CreateAsync(ProductsResponse, requestFilter.PageNumber, requestFilter.PageSize);
 
-            //foreach (var product in result.Items)
-            //{
-            //    product.ImageUrl = _blobStorageService.GetBlobSasUrl(product.ImageUrl);
-            //}
+ 
 
             return Result.Success(result);
         }
         public async Task<Result<ProductDetailsResponse>> GetProductById(Guid id)
         {
-            var product = await _unitOfWork.ProductRepository.GetProductByCategoryAsync(id);
+            string cacheKey = $"Product_{id}";
+
+
+          var cachedProduct = await _cacheService.GetAsync<ProductDetailsResponse>(cacheKey);
+
+            if (cachedProduct is not null)
+                return Result.Success(cachedProduct);
+
+
+
+            var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
 
             if (product is null)
                 return Result.Failure<ProductDetailsResponse>(ProductError.ProductNotFound);
 
-            var result = product.Adapt<ProductDetailsResponse>();
+            var productDetailsResponse = product.Adapt<ProductDetailsResponse>();
+            productDetailsResponse.ImageUrl = _blobStorageService.GetBlobSasUrl(product.ImageUrl);
 
-            result.ImageUrl= _blobStorageService.GetBlobSasUrl(product.ImageUrl);
+            await _cacheService.SetAsync(cacheKey, productDetailsResponse);
 
-            return Result.Success(result);
+            return Result.Success(productDetailsResponse);
 
         }
         public async Task<Result<ProductsResponse>> AddProduct(CreateProductRequest createProductRequest)
@@ -121,6 +131,8 @@ namespace ECommerce.Application.Services
             UpdateProductRequest.Adapt(product);
 
             await _unitOfWork.SaveAsync();
+
+            await _cacheService.RemoveAsync($"Product_{id}");
 
             return Result.Success();
         }
