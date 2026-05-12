@@ -35,15 +35,15 @@ namespace ECommerce.API.Controllers
         }
 
 
-        [HttpGet("emailConfirmation")]
-        public async Task<ActionResult<Result>> EmailConfirmation([FromQuery] EmailConfirmationRequest emailConfirmationRequest)
-        {
+        //[HttpGet("emailConfirmation")]
+        //public async Task<ActionResult<Result>> EmailConfirmation([FromQuery] EmailConfirmationRequest emailConfirmationRequest)
+        //{
 
-            var result = await _authManger.ConfirmEmail(emailConfirmationRequest);
+        //    var result = await _authManger.ConfirmEmail(emailConfirmationRequest);
 
-            return result.IsSuccess ? Ok() : result.ToProblem();
+        //    return result.IsSuccess ? Ok() : result.ToProblem();
 
-        }
+        //}
     }
 }
 
