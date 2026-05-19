@@ -7,8 +7,8 @@ This project started as an ITI assignment and evolved into a complete cloud-nati
 
 # Live Demo
 
-- Swagger UI: https://lnkd.in/dhyd-6u6](https://ecommerce-api-service-g2d2g7fwhub3dphe.spaincentral-01.azurewebsites.net/Swagger/index.html
-- GitHub Repository: https://lnkd.in/dAN49piH](https://github.com/Ahmed-Fathi2/ECommerce-WebAPI-Azure.git
+- Swagger UI: https://ecommerce-api-service-g2d2g7fwhub3dphe.spaincentral-01.azurewebsites.net/Swagger/index.html
+- GitHub Repository: https://github.com/Ahmed-Fathi2/ECommerce-WebAPI-Azure.git
 
 ---
 
